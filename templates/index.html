@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lung Cancer Risk Predictor</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+    color: #222;
+}
+
+/* ===== HEADER ===== */
+header {
+    background: linear-gradient(270deg, #00c6ff, #0072ff, #00c6ff);
+    background-size: 600% 600%;
+    animation: gradientMove 10s ease infinite;
+    color: white;
+    padding: 110px 20px 90px;
+    text-align: center;
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+header p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    opacity: 0.9;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+/* ===== CARD ===== */
+.card {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+    margin-bottom: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+}
+
+h2 {
+    color: #0072ff;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.9rem;
+}
+
+/* ===== FORM ===== */
+label {
+    display: block;
+    margin-top: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+input, select {
+    width: 100%;
+    padding: 15px;
+    margin-top: 6px;
+    border-radius: 14px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 1rem;
+    transition: all 0.25s ease;
+}
+
+input:focus, select:focus {
+    border-color: #0072ff;
+    box-shadow: 0 0 0 3px rgba(0, 114, 255, 0.2);
+}
+
+/* ===== BUTTON ===== */
+button {
+    margin-top: 35px;
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 35px rgba(40, 167, 69, 0.4);
+}
+
+/* ===== RESULT ===== */
+.result {
+    margin-top: 25px;
+    padding: 22px;
+    border-radius: 18px;
+    font-size: 1.4rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.positive {
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    color: #842029;
+}
+
+.negative {
+    background: linear-gradient(135deg, #d4fc79, #96e6a1);
+    color: #0f5132;
+}
+
+/* ===== RISK METER ===== */
+.risk-meter {
+    width: 100%;
+    background: #e9ecef;
+    border-radius: 14px;
+    height: 26px;
+    margin-top: 22px;
+    overflow: hidden;
+}
+
+.risk-fill {
+    height: 100%;
+    font-weight: bold;
+    text-align: center;
+    line-height: 26px;
+    color: white;
+    transition: width 0.6s ease;
+}
+
+/* ===== FACTORS ===== */
+.factors {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.factor-badge {
+    padding: 9px 18px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.risk-badge {
+    background: #fff3cd;
+    color: #856404;
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+}
+
+.safe-badge {
+    background: #d1e7dd;
+    color: #0f5132;
+    box-shadow: 0 5px 15px rgba(25, 135, 84, 0.3);
+}
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    padding: 35px;
+    color: #ddd;
+    font-size: 0.9rem;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Lung Cancer Risk Predictor</h1>
+    <p>Assess your lung cancer risk quickly.</p>
+</header>
+
+<div class="container">
+<div class="card">
+
+<h2>Prediction Form</h2>
+
+<div id="age-error" class="result positive" style="display:none;">
+❌ Age must be between 1 and 100
+</div>
+
+<form method="POST" onsubmit="return validateAge(event);">
+
+<label>AGE</label>
+<input type="number" id="age" name="AGE" min="1" max="100" required>
+
+<label>GENDER</label>
+<select name="GENDER" required>
+    <option value="0">Male</option>
+    <option value="1">Female</option>
+</select>
+
+{% for feature in feature_order %}
+{% if feature not in ['AGE','GENDER'] %}
+<label>{{ feature.replace("_"," ").title() }}</label>
+<select name="{{ feature }}" required>
+    <option value="0">No</option>
+    <option value="1">Yes</option>
+</select>
+{% endif %}
+{% endfor %}
+
+<button type="submit">Predict</button>
+</form>
+
+{% if prediction %}
+<div id="prediction-result"
+     class="result {% if 'Detected' in prediction %}positive{% else %}negative{% endif %}">
+    {{ prediction }}
+</div>
+
+<div class="risk-meter">
+    <div class="risk-fill"
+         style="width:{{ risk_percentage }}%;
+         background:{% if 'Detected' in prediction %}#dc3545{% else %}#198754{% endif %}">
+        {{ risk_percentage }}% Risk
+    </div>
+</div>
+
+<div class="factors">
+{% for factor in risk_factors %}
+<div class="factor-badge risk-badge">⚠ {{ factor.replace("_"," ").title() }}</div>
+{% endfor %}
+{% for factor in safe_factors %}
+<div class="factor-badge safe-badge">✅ {{ factor.replace("_"," ").title() }}</div>
+{% endfor %}
+</div>
+{% endif %}
+
+</div>
+</div>
+
+<footer>© 2026 Lung Cancer Predictor</footer>
+
+<script>
+function validateAge(event) {
+    const age = document.getElementById("age").value;
+    const errorBox = document.getElementById("age-error");
+
+    if (age < 1 || age > 100) {
+        event.preventDefault();
+        errorBox.style.display = "block";
+        errorBox.scrollIntoView({ behavior:"smooth", block:"center" });
+        return false;
+    }
+    return true;
+}
+
+{% if prediction %}
+window.onload = () => {
+    document.getElementById("prediction-result")
+        .scrollIntoView({ behavior:"smooth", block:"center" });
+};
+{% endif %}
+</script>
+
+</body>
+</html>
