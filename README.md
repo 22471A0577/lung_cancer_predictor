@@ -24,8 +24,8 @@ Feature Engineering:
 - PCA (5, 7, 9 components)  
 
 Best Model:
-Logistic Regression with 7 PCA components
-Accuracy: 96.91%
+- Logistic Regression with 7 PCA components
+- Accuracy: 96.91%
 
 Interactive Web Interface:
 
