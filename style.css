@@ -1,0 +1,168 @@
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background: #f4f6f8;
+    color: #333;
+}
+
+/* ===== HEADER ===== */
+header {
+    background: #0d6efd;
+    color: white;
+    padding: 80px 20px 60px;
+    text-align: center;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+header h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+}
+
+header p {
+    margin-top: 8px;
+    font-size: 1.05rem;
+    opacity: 0.95;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* ===== CARD ===== */
+.card {
+    background: #ffffff;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #0d6efd;
+    text-align: center;
+    margin-bottom: 22px;
+    font-size: 1.6rem;
+}
+
+/* ===== FORM ===== */
+label {
+    display: block;
+    margin-top: 16px;
+    font-weight: 500;
+}
+
+input, select {
+    width: 100%;
+    padding: 13px;
+    margin-top: 6px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    font-size: 0.95rem;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #0d6efd;
+}
+
+/* ===== BUTTON ===== */
+button {
+    margin-top: 28px;
+    width: 100%;
+    padding: 14px;
+    background: #198754;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #157347;
+}
+
+/* ===== RESULT ===== */
+.result {
+    margin-top: 22px;
+    padding: 18px;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.positive {
+    background: #f8d7da;
+    color: #842029;
+}
+
+.negative {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+/* ===== RISK METER ===== */
+.risk-meter {
+    width: 100%;
+    background: #e9ecef;
+    border-radius: 10px;
+    height: 20px;
+    margin-top: 18px;
+    overflow: hidden;
+}
+
+.risk-fill {
+    height: 100%;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    line-height: 20px;
+    color: white;
+}
+
+/* ===== FACTORS ===== */
+.factors {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.factor-badge {
+    padding: 6px 14px;
+    border-radius: 14px;
+    font-size: 0.8rem;
+}
+
+.risk-badge {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.safe-badge {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #666;
+    font-size: 0.85rem;
+}
+</style>
